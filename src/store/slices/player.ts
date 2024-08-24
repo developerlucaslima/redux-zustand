@@ -7,98 +7,78 @@ const playerSlice = createSlice({
       modules: [
         {
           id: '1',
-          title: 'Introduction to State Management',
+          title: 'Iniciando com Redux',
           lessons: [
-            { id: 'Jai8w6K_GnY', title: 'What is Redux?', duration: '13:45' },
+            {
+              id: 'Jai8w6K_GnY',
+              title: 'Introdução ao Redux',
+              duration: '13:45',
+            },
             {
               id: 'w-DW4DhDfcw',
-              title: 'Setting Up Redux in Your Project',
+              title: 'Configurando Redux no Projeto',
               duration: '10:05',
             },
             {
               id: 'D83-55LUdKE',
-              title: 'Understanding Actions and Reducers',
+              title: 'Entendendo Actions e Reducers',
               duration: '06:33',
             },
-            { id: 'W_ATsETujaY', title: 'Redux DevTools', duration: '09:12' },
+            {
+              id: 'W_ATsETujaY',
+              title: 'Integração com Redux DevTools',
+              duration: '09:12',
+            },
             {
               id: 'Pj8dPeameYo',
-              title: 'Using Middleware in Redux',
+              title: 'Middleware no Redux',
               duration: '03:23',
             },
             {
               id: '8KBq2vhwbac',
-              title: 'Async Operations with Redux Thunk',
+              title: 'Async Actions com Redux Thunk',
               duration: '11:34',
             },
           ],
         },
         {
           id: '2',
-          title: 'Advanced Redux Concepts',
+          title: 'Estrutura Avançada com Zustand',
           lessons: [
             {
               id: 'gE48FQXRZ_o',
-              title: 'Redux Toolkit Overview',
+              title: 'Introdução ao Zustand',
               duration: '13:45',
             },
             {
               id: 'Ng_Vk4tBl0g',
-              title: 'Creating and Managing Slices',
+              title: 'Criando e Usando Stores no Zustand',
               duration: '10:05',
             },
             {
               id: 'h5JA3wfuW1k',
-              title: 'Memoization with Reselect',
+              title: 'Utilizando Middleware no Zustand',
               duration: '06:33',
             },
             {
               id: '1G0vSTqWELg',
-              title: 'Normalizing State Shape',
+              title: 'Persistência de Estado com Zustand',
               duration: '09:12',
-            },
-          ],
-        },
-        {
-          id: '3',
-          title: 'State Management with Zustand',
-          lessons: [
-            {
-              id: 'Jai8w6K_GnY',
-              title: 'Introduction to Zustand',
-              duration: '13:45',
-            },
-            {
-              id: 'w-DW4DhDfcw',
-              title: 'Setting Up Zustand in Your Project',
-              duration: '10:05',
-            },
-            {
-              id: 'D83-55LUdKE',
-              title: 'Creating and Using Stores in Zustand',
-              duration: '06:33',
-            },
-            {
-              id: 'W_ATsETujaY',
-              title: 'Middleware in Zustand',
-              duration: '09:12',
-            },
-            {
-              id: 'Pj8dPeameYo',
-              title: 'Persisting State with Zustand',
-              duration: '03:23',
-            },
-            {
-              id: '8KBq2vhwbac',
-              title: 'Advanced Patterns in Zustand',
-              duration: '11:34',
             },
           ],
         },
       ],
     },
+    currentLessonIndex: 0,
+    currentModuleIndex: 0,
   },
-  reducers: {},
+  reducers: {
+    play: (state, action) => {
+      state.currentLessonIndex = action.payload[0]
+      state.currentModuleIndex = action.payload[1]
+    },
+  },
 })
 
 export const player = playerSlice.reducer
+export const { play } = playerSlice.actions
