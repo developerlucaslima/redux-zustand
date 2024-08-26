@@ -1,26 +1,21 @@
 import { MessageCircle } from 'lucide-react'
 import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useDispatch } from 'react-redux'
 
 import { Header } from '../components/header'
 import { Module } from '../components/module'
 import { Video } from '../components/video'
 import { useCurrentLessonAndModule } from '../hooks/use-current-lesson-and-module'
-import { api } from '../lib/axios'
-import { useAppSelector } from '../store'
-import { start } from '../store/slices/player'
+import { useAppDispatch, useAppSelector } from '../store'
+import { loadCourse } from '../store/slices/player'
 
 export function Player() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
+  const modules = useAppSelector((store) => store.player.course?.modules)
   const { currentLesson } = useCurrentLessonAndModule()
 
-  const modules = useAppSelector((store) => store.player.course?.modules)
-
   useEffect(() => {
-    api.get(`/course/1`).then((response) => {
-      dispatch(start(response.data))
-    })
+    dispatch(loadCourse())
   })
 
   return (
