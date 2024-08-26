@@ -1,9 +1,9 @@
 import * as Collapsible from '@radix-ui/react-collapsible'
 import { ChevronDown } from 'lucide-react'
-import { useDispatch } from 'react-redux'
 
 import { useCurrentIndex } from '../hooks/use-current-index'
 import { useLessons } from '../hooks/use-lessons'
+import { useAppDispatch } from '../store'
 import { play } from '../store/slices/player'
 import { Lesson } from './lesson'
 
@@ -14,7 +14,7 @@ interface ModuleProps {
 }
 
 export function Module({ moduleIndex, title, amountOfLessons }: ModuleProps) {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { currentModuleIndex, currentLessonIndex } = useCurrentIndex()
   const { lessons } = useLessons(currentModuleIndex)
 
