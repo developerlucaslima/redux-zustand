@@ -19,12 +19,14 @@ interface PlayerState {
   course: Course | null
   currentModuleIndex: number
   currentLessonIndex: number
+  isLoading: boolean
 }
 
 const initialState: PlayerState = {
   course: null,
   currentModuleIndex: 0,
   currentLessonIndex: 0,
+  isLoading: true,
 }
 
 export const loadCourse = createAsyncThunk('player/load', async () => {
@@ -37,9 +39,6 @@ const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
-    start: (state, action: PayloadAction<Course>) => {
-      state.course = action.payload
-    },
     play: (state, action: PayloadAction<[number, number]>) => {
       state.currentModuleIndex = action.payload[0]
       state.currentLessonIndex = action.payload[1]
@@ -63,11 +62,16 @@ const playerSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(loadCourse.pending, (state) => {
+      state.isLoading = true
+    })
+
     builder.addCase(loadCourse.fulfilled, (state, action) => {
       state.course = action.payload
+      state.isLoading = false
     })
   },
 })
 
 export const player = playerSlice.reducer
-export const { start, play, next } = playerSlice.actions
+export const { play, next } = playerSlice.actions
